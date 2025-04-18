@@ -1,7 +1,6 @@
 name: Build Conda Packages
 
-on:
-  workflow_call
+on: workflow_dispatch
 
 env:
   GH_HEAD_REF: ${{ github.head_ref }}
