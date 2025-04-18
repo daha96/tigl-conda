@@ -1,6 +1,6 @@
 name: Build Conda Packages
 
-on: 
+on:
   push:
     branches:
       - '**'
