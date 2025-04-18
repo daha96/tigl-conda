@@ -8,4 +8,4 @@ cxx_compiler:
  - vs2015                     # [win]
 
 cxx_compiler_version:
- - 9.3.0                     # [linux]
+ - 11.4.0                     # [linux]

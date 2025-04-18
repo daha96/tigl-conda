@@ -131,7 +131,7 @@ def main():
     if len(modules) > 0:
         print("conda build " + " ".join(modules))
         if upload_to_anaconda:
-            conda_build.api.build(modules, user="dlr-sc", token=api_token)
+            conda_build.api.build(modules, user="d.hardt", token=api_token)
         else:
             conda_build.api.build(modules)
     else:
