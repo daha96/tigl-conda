@@ -92,4 +92,24 @@ jobs:
       run: |
         python --version
         python build_recipes.py
- 
+
+    - name: Archive packages (linux-64)
+      if: contains(matrix.os, 'ubuntu')
+      uses: actions/upload-artifact@v4
+      with:
+        name: conda-packages-${{ matrix.os }}-python-${{ matrix.python }}
+        path: /home/runner/miniconda3/envs/tigl-conda/conda-bld/linux-64/*.conda
+
+    - name: Archive packages (win-64)
+      if: contains(matrix.os, 'windows')
+      uses: actions/upload-artifact@v4
+      with:
+        name: conda-packages-${{ matrix.os }}-python-${{ matrix.python }}
+        path: C:/Users/runneradmin/miniconda3/envs/tigl-conda/conda-bld/win-64/*.conda
+
+    - name: Archive packages (osx-64)
+      if: contains(matrix.os, 'macos')
+      uses: actions/upload-artifact@v4
+      with:
+        name: conda-packages-${{ matrix.os }}-python-${{ matrix.python }}
+        path: /Users/runner/miniconda3/envs/tigl-conda/conda-bld/osx-64/*.conda
