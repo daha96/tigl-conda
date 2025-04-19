@@ -97,4 +97,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: conda-packages-${{ matrix.os }}-python-${{ matrix.python }}
-        path: /home/runner/miniconda3/envs/tigl-conda/conda-bld/${{ matrix.arch }}/*.conda
+        path: /home/runner/miniconda3/envs/tigl-conda/conda-bld/**/*.conda
