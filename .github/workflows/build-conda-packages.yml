@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - '**'
-  pull_request:
+#  pull_request:
 
 env:
   GH_HEAD_REF: ${{ github.head_ref }}
@@ -18,7 +18,7 @@ jobs:
       matrix:
         arch: ['x64']
         os: [windows-2022, ubuntu-22.04, macos-15]
-        python: ['3.13']
+        python: ['3.12']
         exclude:
           - arch: x86
             os: macos-latest
