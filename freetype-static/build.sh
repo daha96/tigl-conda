@@ -1,0 +1,21 @@
+mkdir buildd
+cd buildd
+
+# Configure step
+cmake -G "Ninja" -DCMAKE_INSTALL_PREFIX=$PREFIX \
+ -DCMAKE_BUILD_TYPE=Release \
+ -DCMAKE_PREFIX_PATH=$PREFIX \
+ -DCMAKE_SYSTEM_PREFIX_PATH=$PREFIX \
+ -DFT_DISABLE_PNG=TRUE \
+ -DFT_DISABLE_ZLIB=TRUE \
+ -DFT_DISABLE_BZIP2=TRUE \
+ -DFT_DISABLE_HARFBUZZ=TRUE \
+ -DFT_DISABLE_BROTLI=TRUE \
+ ..
+
+# Build step 
+ninja
+
+# Install step
+ninja install
+

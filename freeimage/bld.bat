@@ -1,30 +1,53 @@
-mkdir buildd
-cd buildd
-
-REM Configure step
-cmake -G Ninja -DCMAKE_INSTALL_PREFIX="%LIBRARY_PREFIX%" ^
- -DCMAKE_BUILD_TYPE=Release ^
- -DCMAKE_PREFIX_PATH="%LIBRARY_PREFIX%" ^
- -DCMAKE_SYSTEM_PREFIX_PATH="%LIBRARY_PREFIX%" ^
- -DOCE_WIN_BUNDLE_INSTALL_DIR="%LIBRARY_PREFIX%" ^
- -DBUNDLE_BUILD_FREEIMAGE=ON ^
- -DBUNDLE_BUILD_FREETYPE=OFF ^
- -DBUNDLE_BUILD_GL2PS=OFF ^
- -DBUNDLE_SHARED_LIBRARIES=ON ^
- -DOCE_MULTITHREAD_LIBRARY=OpenMP ^
- ..
+dos2unix Source/**/*.cpp
 if errorlevel 1 exit 1
 
-REM Build step 
-cmake --build .
+patch -p1 < %RECIPE_DIR%/patches/Use-system-libs.patch
+if errorlevel 1 exit 1
+patch -p1 < %RECIPE_DIR%/patches/Fix-compatibility-with-system-libpng.patch
+if errorlevel 1 exit 1
+patch -p1 < %RECIPE_DIR%/patches/CVE-2019-12211-13.patch
+if errorlevel 1 exit 1
+patch -p1 < %RECIPE_DIR%/patches/freeimage-openexr3.patch
+if errorlevel 1 exit 1
+patch -p1 < %RECIPE_DIR%/patches/remove_auto_ptr.patch
 if errorlevel 1 exit 1
 
-REM Install step
-cmake --build . --target install
+rem remove all included libs to make sure these don't get used during compile
+del /Q /S Source\Lib* Source\ZLib Source\OpenEXR
+
+rem clear files which cannot be built due to dependencies on private headers
+rem see also unbundle patch
+echo "" > Source/FreeImage/PluginG3.cpp
+echo "" > Source/FreeImageToolkit/JPEGTransform.cpp
+
+rem copy CMake files
+mkdir cmake
+copy  %RECIPE_DIR%\cmake\*.cmake cmake
+
+mkdir build
+cd build
+
+cmake -DCMAKE_INSTALL_PREFIX=%LIBRARY_PREFIX% ^
+      -DCMAKE_PREFIX_PATH=%LIBRARY_PREFIX% ^
+      -DCMAKE_INSTALL_LIBDIR=lib ^
+      -DBUILD_SHARED_LIBS=ON ^
+      -DCMAKE_BUILD_TYPE=Release ^
+      -G "Ninja" ^
+      ..
 if errorlevel 1 exit 1
 
-REM fix non-standard include location
-copy "%LIBRARY_PREFIX%"\include\FreeImage\FreeImage.h "%LIBRARY_PREFIX%"\include
-copy "%LIBRARY_PREFIX%"\include\FreeImage\FreeImagePlus.h "%LIBRARY_PREFIX%"\include
-rmdir /S /Q "%LIBRARY_PREFIX%"\include\FreeImage
+ninja -v
+if errorlevel 1 exit 1
 
+ninja install
+if errorlevel 1 exit 1
+
+rem cmake -E create_symlink ${PREFIX}/lib/libfreeimage${SHLIB_EXT} ${PREFIX}/lib/libfreeimage-${PKG_VERSION}${SHLIB_EXT}
+
+
+rem msbuild.exe /p:Configuration=Release FreeImage.2017.vcxproj
+rem if errorlevel 1 exit 1
+rem move Dist\%PLATFORM%\FreeImage.lib %LIBRARY_LIB%\FreeImage.lib
+rem move Dist\%PLATFORM%\FreeImage.dll %LIBRARY_BIN%\FreeImage.dll
+rem move Dist\%PLATFORM%\FreeImage.h %LIBRARY_INC%
+rem if errorlevel 1 exit 1

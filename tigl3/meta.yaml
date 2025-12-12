@@ -1,4 +1,4 @@
-{% set version = "3.4.1+daha96_1037fix" %}
+{% set version = "3.5.0-rc1+daha96_1037fix" %}
 
 package:
   name: tigl3
@@ -6,10 +6,10 @@ package:
 
 source:
   git_url: https://gitlab01.intern.leichtwerkag.local/project/pas/tigl.git
-  git_branch: 1037-fix-new-rebased4
+  git_branch: 1037-fix-tigl35
 
 build:
-  number: 30
+  number: 0
 
 
 requirements:
@@ -18,25 +18,37 @@ requirements:
     - {{ cdt('libx11-devel') }}         # [linux]
     - {{ cdt('xorg-x11-proto-devel') }} # [linux]
     - {{ cdt('mesa-libgl-devel') }}     # [linux]
+    - {{ cdt('mesa-dri-drivers') }}     # [linux]
+    - {{ cdt('libxcb') }}               # [linux]
+    - {{ cdt('libxi-devel') }}          # [linux]
+    - {{ cdt('libxau-devel') }}         # [linux]
+    - {{ cdt('libxext-devel') }}        # [linux]
+    - {{ cdt('libselinux') }}           # [linux]
+    - {{ cdt('libXdamage') }}           # [linux]
+    - {{ cdt('libXfixes') }}            # [linux]
+    - {{ cdt('libXxf86vm') }}           # [linux]
     - ninja
     - cmake
     - swig >=3.0.11
     - doxygen
 
   host:
-    - tixi3 ==3.3.0
-    - opencascade ==7.4.0
-    - pythonocc-core ==7.4.1
+    - tixi3 ==3.3.1
+    - opencascade ==7.6.2
+    - pythonocc-core ==7.6.2
     - tbb-devel ==2019.5
     - python {{ python }}
+    - libglu                            # [linux]
+    - qt ==5.15.7
 
   run:
-    - tixi3 ==3.3.0
+    - tixi3 ==3.3.1
+    - qt >=5.9.7,<6.0.0
     - pyqt
-    - opencascade ==7.4.0
-    - pythonocc-core ==7.4.1
+    - opencascade ==7.6.2
+    - pythonocc-core ==7.6.2
     - tbb ==2019.5
-    - python
+    - python {{ python }}
 
 test:
   imports:
@@ -48,3 +60,4 @@ about:
   home: https://github.com/DLR-SC/tigl
   license: Apache 2.0
   summary: The TiGL Geometry Library to process aircraft geometries in pre-design
+
