@@ -134,9 +134,9 @@ def main():
     if len(modules) > 0:
         print("conda build " + " ".join(modules))
         if upload_to_anaconda:
-            conda_build.api.build(modules, anaconda_upload=True, user="leichtwerk", token=api_token)
+            print(conda_build.api.build(modules, anaconda_upload=True, user="leichtwerk", token=api_token))
         else:
-            conda_build.api.build(modules)
+            print(conda_build.api.build(modules))
     else:
         print("No packages changed. Nothing to be built.")
 
