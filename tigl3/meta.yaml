@@ -9,7 +9,7 @@ source:
   git_branch: master-leichtwerk
 
 build:
-  number: 3
+  number: 5
 
 
 requirements:
@@ -39,12 +39,12 @@ requirements:
     - tbb-devel ==2019.5
     - python {{ python }}
     - libglu                            # [linux]
-    - qt ==5.15.15
+#    - qt ==5.15.15
 
   run:
     - tixi3 ==3.3.1
-    - qt >=5.9.7,<6.0.0
-    - pyqt
+#    - qt >=5.9.7,<6.0.0
+#    - pyqt
     - opencascade ==7.6.2
     - pythonocc-core ==7.6.2
     - tbb ==2019.5
