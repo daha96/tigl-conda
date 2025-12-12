@@ -1,4 +1,4 @@
-{% set version = "3.5.0-rc1+daha96_1037fix" %}
+{% set version = "3.5.0rc1+daha96_1037fix" %}
 
 package:
   name: tigl3
