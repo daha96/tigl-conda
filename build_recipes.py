@@ -124,7 +124,7 @@ def main():
         print("On branch {}.".format(active_branch))
     else:
         print ("Could not determine branch name.")
-    if not active_branch == 'master-daha96':
+    if not active_branch == 'master-leichtwerk':
         print ("The current branch is not the master branch. Packages will not be uploaded.")
         upload_to_anaconda = False
 

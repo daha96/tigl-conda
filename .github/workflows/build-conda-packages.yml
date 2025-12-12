@@ -5,7 +5,6 @@ on:
     branches:
       - '**'
   pull_request:
-  workflow_dispatch:
 
 env:
   GH_HEAD_REF: ${{ github.head_ref }}
