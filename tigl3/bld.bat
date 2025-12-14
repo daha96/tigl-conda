@@ -20,15 +20,15 @@ cmake -G "Ninja" -DCMAKE_INSTALL_PREFIX="%LIBRARY_PREFIX%" ^
 if errorlevel 1 exit 1
 
 REM Build step 
-cmake --build . --config Release
+cmake --build . -j 12 --config Release
 if errorlevel 1 exit 1
 
 REM Install step
-cmake --build . --target install --config Release
+cmake --build . -j 12 --target install --config Release
 if errorlevel 1 exit 1
 
 REM install python packages
-move %LIBRARY_PREFIX%\share\tigl3\python\tigl3 %SP_DIR%
+move %LIBRARY_PREFIX%\Lib\site-packages\tigl3 %SP_DIR%
 
 REM The egg-info file is necessary because some packages,
 REM might require tigl3 in their setup.py.
