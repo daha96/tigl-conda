@@ -2,12 +2,12 @@ MACOSX_SDK_VERSION:
   - '15.0'                   # [osx]
 
 MACOSX_DEPLOYMENT_TARGET:
-  - '15.0'                   # [osx]  
+  - '15.0'                   # [osx]
 
 c_compiler:
  - vs2019                     # [win]
  - clang_bootstrap            # [osx]
- 
+
 cxx_compiler:
  - vs2019                     # [win]
  - clang_bootstrap            # [osx]

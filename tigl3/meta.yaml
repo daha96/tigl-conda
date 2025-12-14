@@ -1,15 +1,15 @@
-{% set version = "3.5.0-rc1" %}
+{% set version = "3.5.0rc1+leichtwerk" %}
 
 package:
   name: tigl3
-  version: 3.5.0rc1 #TODO: Change back to {{ version }} (- not allowed in version string)
+  version: {{ version }}
 
 source:
-  git_url: https://github.com/DLR-SC/tigl.git
-  git_tag: v{{ version }}
+  git_url: https://github.com/daha96/tigl.git
+  git_branch: master-leichtwerk
 
 build:
-  number: 0
+  number: 9
 
 
 requirements:
@@ -39,12 +39,12 @@ requirements:
     - tbb-devel ==2019.5
     - python {{ python }}
     - libglu                            # [linux]
-    - qt ==5.15.7
+#    - qt ==5.15.15
 
   run:
     - tixi3 ==3.3.1
-    - qt >=5.9.7,<6.0.0
-    - pyqt
+#    - qt >=5.9.7,<6.0.0
+#    - pyqt
     - opencascade ==7.6.2
     - pythonocc-core ==7.6.2
     - tbb ==2019.5

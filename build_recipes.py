@@ -124,7 +124,7 @@ def main():
         print("On branch {}.".format(active_branch))
     else:
         print ("Could not determine branch name.")
-    if not active_branch == 'master':
+    if not active_branch == 'master-leichtwerk':
         print ("The current branch is not the master branch. Packages will not be uploaded.")
         upload_to_anaconda = False
 
@@ -134,9 +134,9 @@ def main():
     if len(modules) > 0:
         print("conda build " + " ".join(modules))
         if upload_to_anaconda:
-            conda_build.api.build(modules, user="dlr-sc", token=api_token)
+            print(conda_build.api.build(modules, anaconda_upload=True, user="leichtwerk", token=api_token))
         else:
-            conda_build.api.build(modules)
+            print(conda_build.api.build(modules))
     else:
         print("No packages changed. Nothing to be built.")
 
